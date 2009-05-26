@@ -275,6 +275,7 @@ shoes_canvas_mark(shoes_canvas *canvas)
 {
   shoes_native_slot_mark(canvas->slot);
   rb_gc_mark_maybe(canvas->contents);
+  rb_gc_mark_maybe(canvas->named_contents);
   rb_gc_mark_maybe(canvas->attr);
   rb_gc_mark_maybe(canvas->parent);
 }
@@ -317,6 +318,7 @@ shoes_canvas_alloc(VALUE klass)
   canvas->app = NULL;
   canvas->stage = CANVAS_NADA;
   canvas->contents = Qnil;
+  canvas->named_contents = Qnil;
   canvas->shape = NULL;
   canvas->insertion = -2;
   VALUE rb_canvas = Data_Wrap_Struct(klass, shoes_canvas_mark, shoes_canvas_free, canvas);
@@ -334,12 +336,12 @@ shoes_canvas_new(VALUE klass, shoes_app *app)
 }
 
 static void
-shoes_canvas_empty(shoes_canvas *canvas, int extras)
+shoes_canvas_empty(shoes_canvas *canvas)
 {
   unsigned char stage = canvas->stage;
   canvas->stage = CANVAS_EMPTY;
   shoes_ele_remove_all(canvas->contents);
-  if (extras) shoes_extras_remove_all(canvas);
+  shoes_extras_remove_all(canvas);
   canvas->stage = stage;
 }
 
@@ -358,8 +360,9 @@ shoes_canvas_clear(VALUE self)
   canvas->stl = 0;
   canvas->stt = 0;
   shoes_canvas_reset_transform(canvas);
-  shoes_canvas_empty(canvas, TRUE);
+  shoes_canvas_empty(canvas);
   canvas->contents = rb_ary_new();
+  canvas->named_contents = rb_hash_new();
   canvas->place.x = canvas->place.y = 0;
   canvas->place.dx = canvas->place.dy = 0;
   canvas->place.ix = canvas->place.iy = 0;
@@ -1102,6 +1105,23 @@ shoes_canvas_contents(VALUE self)
 }
 
 VALUE
+shoes_canvas_named_contents(VALUE self)
+{
+  GET_STRUCT(canvas, self_t);
+  return self_t->named_contents;
+}
+
+VALUE
+shoes_canvas_name_this(VALUE self, VALUE name)
+{
+  VALUE ele;
+  GET_STRUCT(canvas, self_t);
+  ele = rb_ary_entry(self_t->contents, RARRAY_LEN(self_t->contents) - 1);
+  rb_hash_aset(self_t->named_contents, name, ele);
+  return Qnil;
+}
+
+VALUE
 shoes_canvas_children(VALUE self)
 {
   GET_STRUCT(canvas, self_t);
@@ -1172,7 +1192,7 @@ shoes_canvas_remove(VALUE self)
 {
   shoes_canvas *self_t;
   Data_Get_Struct(self, shoes_canvas, self_t);
-  shoes_canvas_empty(self_t, TRUE);
+  shoes_canvas_empty(self_t);
   if (!NIL_P(self_t->parent))
   {
     shoes_canvas *pc;
@@ -1500,7 +1520,7 @@ shoes_canvas_clear_contents(int argc, VALUE *argv, VALUE self)
   SETUP();
 
   if (rb_block_given_p()) block = rb_block_proc();
-  shoes_canvas_empty(canvas, FALSE);
+  shoes_canvas_empty(canvas);
   if (!NIL_P(block))
     shoes_canvas_memdraw(self, block);
   shoes_canvas_repaint_all(self);

@@ -327,6 +327,7 @@ typedef struct {
   shoes_transform *st, **sts;
   int stl, stt;
   VALUE contents;
+  VALUE named_contents;
   unsigned char stage;
   long insertion;
   int cx, cy;               // cursor x and y (stored in absolute coords)
@@ -452,6 +453,8 @@ VALUE shoes_canvas_slider(int, VALUE *, VALUE);
 VALUE shoes_canvas_check(int, VALUE *, VALUE);
 VALUE shoes_canvas_radio(int, VALUE *, VALUE);
 VALUE shoes_canvas_contents(VALUE);
+VALUE shoes_canvas_named_contents(VALUE);
+VALUE shoes_canvas_name_this(VALUE, VALUE);
 VALUE shoes_canvas_children(VALUE);
 void shoes_canvas_size(VALUE, int, int);
 VALUE shoes_canvas_clear_contents(int, VALUE *, VALUE);

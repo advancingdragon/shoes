@@ -77,7 +77,7 @@ static inline void flip_endian(unsigned char* x, int length) {
 
 #undef s_host
 
-extern VALUE cShoes, cApp, cDialog, cTypes, cShoesWindow, cMouse, cCanvas, cFlow, cStack, cMask, cNative, cShape, cVideo, cImage, cEffect, cEvery, cTimer, cAnim, cPattern, cBorder, cBackground, cPara, cBanner, cTitle, cSubtitle, cTagline, cCaption, cInscription, cLinkText, cTextBlock, cTextClass, cSpan, cStrong, cSub, cSup, cCode, cDel, cEm, cIns, cButton, cEditLine, cEditBox, cListBox, cProgress, cSlider, cCheck, cRadio, cColor, cDownload, cResponse, cColors, cLink, cLinkHover, ssNestSlot;
+extern VALUE cShoes, cApp, cDialog, cShoesWindow, cMouse, cCanvas, cFlow, cStack, cMask, cNative, cShape, cVideo, cImage, cEffect, cEvery, cTimer, cAnim, cPattern, cBorder, cBackground, cPara, cBanner, cTitle, cSubtitle, cTagline, cCaption, cInscription, cLinkText, cTextBlock, cTextClass, cSpan, cStrong, cSub, cSup, cCode, cDel, cEm, cIns, cButton, cEditLine, cEditBox, cListBox, cProgress, cSlider, cCheck, cRadio, cColor, cDownload, cResponse, cColors, cLink, cLinkHover, ssNestSlot;
 extern VALUE aMsgList;
 extern VALUE eInvMode, eNotImpl, eImageError;
 extern VALUE reHEX_SOURCE, reHEX3_SOURCE, reRGB_SOURCE, reRGBA_SOURCE, reGRAY_SOURCE, reGRAYA_SOURCE, reLF;
@@ -199,6 +199,7 @@ void shoes_cairo_arc(cairo_t *, double, double, double, double, double, double);
 SYMBOL_DEFS(SYMBOL_EXTERN);
 
 #define CANVAS_DEFS(f) \
+  f(".name_this", name_this, 1); \
   f(".close", close, 0); \
   f(".gutter", get_gutter_width, 0); \
   f(".nostroke", nostroke, 0); \
