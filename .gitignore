@@ -1,6 +1,9 @@
 *.o
+*.so
 *.obj
 *.res
+*.log
+*.swp
 bin/main.c
 shoes/version.h
 deps
