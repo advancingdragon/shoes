@@ -454,6 +454,8 @@ VALUE shoes_canvas_check(int, VALUE *, VALUE);
 VALUE shoes_canvas_radio(int, VALUE *, VALUE);
 VALUE shoes_canvas_contents(VALUE);
 VALUE shoes_canvas_named_contents(VALUE);
+VALUE shoes_canvas_get_named(VALUE, VALUE);
+VALUE shoes_canvas_set_named(VALUE, VALUE, VALUE);
 VALUE shoes_canvas_name_this(VALUE, VALUE);
 VALUE shoes_canvas_children(VALUE);
 void shoes_canvas_size(VALUE, int, int);

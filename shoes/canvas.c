@@ -1112,6 +1112,20 @@ shoes_canvas_named_contents(VALUE self)
 }
 
 VALUE
+shoes_canvas_get_named(VALUE self, VALUE key)
+{
+  GET_STRUCT(canvas, self_t);
+  return rb_hash_aref(self_t->named_contents, key);
+}
+
+VALUE
+shoes_canvas_set_named(VALUE self, VALUE key, VALUE value)
+{
+  GET_STRUCT(canvas, self_t);
+  return rb_hash_aset(self_t->named_contents, key, value);
+}
+
+VALUE
 shoes_canvas_name_this(VALUE self, VALUE name)
 {
   VALUE ele;

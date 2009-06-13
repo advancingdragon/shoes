@@ -4618,6 +4618,8 @@ shoes_ruby_init()
   rb_define_method(cCanvas, "parent", CASTHOOK(shoes_canvas_get_parent), 0);
   rb_define_method(cCanvas, "contents", CASTHOOK(shoes_canvas_contents), 0);
   rb_define_method(cCanvas, "named_contents", CASTHOOK(shoes_canvas_named_contents), 0);
+  rb_define_method(cCanvas, "[]", CASTHOOK(shoes_canvas_get_named), 1);
+  rb_define_method(cCanvas, "[]=", CASTHOOK(shoes_canvas_set_named), 2);
   rb_define_method(cCanvas, "children", CASTHOOK(shoes_canvas_children), 0);
   rb_define_method(cCanvas, "draw", CASTHOOK(shoes_canvas_draw), 2);
   rb_define_method(cCanvas, "hide", CASTHOOK(shoes_canvas_hide), 0);
