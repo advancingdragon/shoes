@@ -479,9 +479,6 @@ class Shoes
     end
   end
 
-  class Types
-  end
-
   class Types::Widget
     @types = {}
     def self.inherited subc
