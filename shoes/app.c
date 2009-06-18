@@ -555,6 +555,14 @@ shoes_app_is_started(VALUE self)
 }
 
 VALUE
+shoes_app_get_canvas(VALUE self)
+{
+  shoes_app *app;
+  Data_Get_Struct(self, shoes_app, app);
+  return app->canvas;
+}
+
+VALUE
 shoes_app_contents(VALUE self)
 {
   shoes_app *app;

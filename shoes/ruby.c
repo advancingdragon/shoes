@@ -4649,6 +4649,7 @@ shoes_ruby_init()
   rb_define_method(cApp, "width", CASTHOOK(shoes_app_get_width), 0);
   rb_define_method(cApp, "height", CASTHOOK(shoes_app_get_height), 0);
   rb_define_method(cApp, "slot", CASTHOOK(shoes_app_slot), 0);
+  rb_define_method(cApp, "canvas", CASTHOOK(shoes_app_get_canvas), 0);
   cDialog = rb_define_class_under(cShoes, "Dialog", cApp);
 
   eInvMode = rb_define_class_under(cShoes, "InvalidModeError", rb_eStandardError);

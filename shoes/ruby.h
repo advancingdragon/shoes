@@ -199,6 +199,12 @@ void shoes_cairo_arc(cairo_t *, double, double, double, double, double, double);
 SYMBOL_DEFS(SYMBOL_EXTERN);
 
 #define CANVAS_DEFS(f) \
+  f(".parent", get_parent, 0); \
+  f(".contents", contents, 0); \
+  f(".children", children, 0); \
+  f(".named_contents", named_contents, 0); \
+  f(".[]", get_named, 1); \
+  f(".[]=", set_named, 2); \
   f(".name_this", name_this, 1); \
   f(".close", close, 0); \
   f(".gutter", get_gutter_width, 0); \
